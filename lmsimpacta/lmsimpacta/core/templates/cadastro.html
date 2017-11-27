@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<title>UNIVANDS</title>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+<!--login aluno-->
+	<div>
+		<form action="/your-name/" method="post">
+			{% csrf_token %}
+			<input name="alex"/>
+			<input name="email"/>
+    		<input type="submit" value="Submit" />
+		</form>
+	</div>
+
+<!--login professor -->
+
+	<div class="container">
+		<form action="/your-name/" method="post">
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Submit" />
+		</form>
+      
+	</div/>
