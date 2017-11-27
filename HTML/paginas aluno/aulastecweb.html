@@ -1,0 +1,66 @@
+
+
+
+
+
+{% extends 'basealuno.html' %}
+
+{% block main %}
+<div>
+<ul>
+ <li></h1><a href="areaaluno.html"> <button class="button2" style="vertical-align:middle" ><span><h4><pre>HOME</pre></h4></span></button></a></li>
+ <center> <h1>Tec Web</h1></center>
+</ul>
+
+
+</div>
+
+<div class="row">
+
+{% for aluno in alunos  %}
+<div class="col-3 left">
+  <div class="aside">
+    <img src="..\imagens\aluna.png">
+    <p><strong>Ola:</strong>{{aluno.nome}}<br/><strong>Curso:</strong>{{aluno.curso}}<br/>
+    <a href="notasefaltasaluno.html"><button class="button" style="vertical-align:middle"><span><h4>Notas e Faltas</h4></span></button></a>
+    <a href="..\imagens\calendario.png"><p><button class="button" style="vertical-align:middle"><span><h4>Calendário e Horários</h4></span></button></p></a>
+	<a href="Smartclass.html"><button class="button" style="vertical-align:middle"><span><h4>SmartClass</h4></h2></span></button></p></a>
+	<a href="satividades.html"><button class="button" style="vertical-align:middle"><span><h4>Status das Atividades</h4></h2></span></button></p></a>
+	<a href="perfilaluno.html"><button class="button" style="vertical-align:middle"><span><h4>Perfil</h4></h2></span></button></p></a>
+	<a href="index.html"><button class="button" style="vertical-align:middle"><span><h4>Sair</h4></h2></span></button></p></a>
+ </div>
+</div>
+{% endfor %}
+<div class="col-6">
+  <div class="box">
+      <h1>Colocar as atividades aqui</h1>
+  </div>
+  <p></p>
+  <div class="box">
+  <div>
+ <p id="para"><strong>Mande uma Mensagem Para o Professor</strong></p>
+  
+  </div>
+     <div class="container">
+  <form>
+    <label for="fname">Primeiro Nome</label>
+    <input type="text" id="pname" name="primeironome" placeholder="Seu nome..">
+
+  
+
+
+
+    <label for="mensagem">Mensagem</label>
+    <textarea id="subject" name="subject" placeholder="Escreva Sua Mensagem" style="height:200px"></textarea>
+
+    <input type="submit" value="Enviar">
+  </form>
+  </div>
+    
+  </div>
+</div>
+</div>
+  
+
+
+{% endblock %}

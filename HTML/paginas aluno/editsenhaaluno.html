@@ -1,0 +1,71 @@
+
+{% extends 'basealuno.html' %}
+
+{% block main %}
+<div>
+<ul>
+  <li></h1><a href="areaaluno.html"> <button class="button2" style="vertical-align:middle" ><span><h4><pre>HOME</pre></h4></span></button></a></li>
+  
+</ul>
+
+
+
+
+
+
+</div>
+
+<div class="row">
+{% for aluno in alunos  %}
+
+<div class="col-3 left">
+  <div class="aside">
+    <img src="..\imagens\aluna.png">
+    <p><strong>{{aluno.nome}}</strong></p>
+    <a href="perfilaluno.html"><button class="button" style="vertical-align:middle"><span><h4>Perfil</h4></span></button></a>
+    <a href="editperfilaluno.html"><p><button class="button" style="vertical-align:middle"><span><h4>Editar Perfil</h4></span></button></p></a>
+	<a href="#"><p><button class="button" style="vertical-align:middle"><span><h4>Salvar</h4></h2></span></button></p></a>
+	<a href="index.html"><p><button class="button" style="vertical-align:middle"><span><h4>Sair</h4></h2></span></button></p></a>
+ </div>
+</div>
+
+<div class="col-6">
+  <center></center>
+   <div class="box">
+    <p id="para"><strong>Alterar Senha</strong></p>
+	 <input type="password" maxlength="18" placeholder="Senha Antiga" required name="senhaantiga"><input type="password" maxlength="18" placeholder="Senha Atual" required name="senhaatual">
+     
+	
+</pre>
+  </div>
+  <p></p>
+<div class="box">
+    <p id="para"><strong>Dados pessoais</strong></p>
+	<pre>Nome: {{aluno.nome}}  E-Mail:{{aluno.email}}</p>
+CPF: {{aluno.cpf}}   RG: {{aluno.rg}} CEL: {{aluno.cel}}
+</pre>
+  </div>
+  <p></p>
+  
+  
+   <div class="box">
+    <p id="para"><strong>Endereço</strong></p>
+	<pre>Rua:{{aluno.rua}}    Nº: {{aluno.numero}}    Bairro:{{aluno.bairro}} </p> 
+Cidade: {{aluno.cidade}}   CEP: {{aluno.cep}}  UF: {{aluno.uf}}   
+</pre>
+</div>
+<p></p>
+   <div class="box">
+    <p id="para"><strong>Informações sobre o curso</strong></p>
+	<pre>Turma: {{aluno.turma}}   Professor(a): {{aluno.nomedoprofessor}}    Horário:{{aluno.horario}} </p> 
+Sala:{{aluno.sala}}  Curso: {{aluno.curso}}  Disciplina: {{aluno.disciplina}} 
+</pre>
+  </div>
+ </div>
+   {% endfor %}
+</div>
+
+
+
+</div>
+{% endblock %}
