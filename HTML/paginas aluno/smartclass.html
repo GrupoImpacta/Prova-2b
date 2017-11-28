@@ -1,0 +1,171 @@
+{% extends 'basealuno.html' %}
+
+{% block main %}
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$( ".button" ).click(function() {
+			
+				if($("#" + $(this).attr("data-id")).hasClass("esconde")){
+					console.log("#" + $(this).attr("data-id"))
+					$("#" + $(this).attr("data-id")).removeClass("esconde");
+					$("#" + $(this).attr("data-id")).addClass("mostra");
+				}else {
+				
+					$("#" + $(this).attr("data-id")).addClass("esconde");
+					$("#" + $(this).attr("data-id")).removeClass("mostra");
+				}
+					
+			});
+		});
+	</script>
+
+
+		<ul>
+			<center>
+				
+					<li>
+						<a href="areaaluno.html"> 
+							<button class="button2" style="vertical-align:middle" >
+								<span>
+									<h4><pre>HOME</pre></h4>
+								</span>
+							</button>
+						</a>
+					</li>
+					
+				
+			</center>
+		</ul>
+				
+				<div class="row">
+				{% for aluno in alunos  %}
+					<div class="col-3 left">
+						<div class="aside">
+							<img src="..\Imagens\aluna.png">
+							<p><strong>Ola:</strong>{{aluno.nome}}</p>
+							<p><strong>disciplina:</strong>{{aluno.curso}}</p>
+							<a href="..\Paginas\notasefaltasaluno.html">
+								<p>
+									<button class="button" style="vertical-align:middle">
+										<span>
+											<h4>Notas e Faltas</h4>
+										</span>
+									</button>
+								</p>
+							</a>
+							<a href="..\imagens\calendario.png">
+								<p>
+									<button class="button" style="vertical-align:middle">
+										<span>
+											<h4>Calendário e Horários</h4>
+										</span>
+									</button>
+								</p>
+							</a>
+							
+							<a href="satividades.html">
+								<p>
+									<button class="button" style="vertical-align:middle">
+										<span>
+											<h4>Status da atividade</h4>
+										</span>
+									</button>
+								</p>
+							</a>
+							
+							<a href="perfilaluno.html">
+								<p>
+									<button class="button" style="vertical-align:middle">
+										<span>
+											<h4>Perfil</h4>
+										</span>
+									</button>
+								</p>
+							</a>
+							<a href="index.html">
+								<p>
+									<button class="button" style="vertical-align:middle">
+										<span>
+											<h4>Sair</h4>
+										</span>
+									</button>
+								</p>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+				
+					<div class="col-6">
+						<div id="menu">	
+							<div class="col-6 left">
+								<div class="button-select">
+									<button class="button" style="vertical-align:middle" data-id="sub-menu-1">
+										<h4>Linguagem SQL</h4>
+									</button>
+									<div id="sub-menu-1" class="sub-menu esconde">
+										<table>
+											<tr>
+												<td>Vídeo aula</td>
+												<td><button type="button" class="btn btn-primary btn-md">Assistir</button></td>
+											</tr>
+											<tr>
+												<td>Atividade</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Download</button></td>
+											</tr>
+											<tr>
+												<td>Avaliação</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Iniciar</button></td>
+											</tr>
+										</table>
+									</div>
+								
+									<button class="button" style="vertical-align:middle" data-id="sub-menu-2">
+										<h4>TecWeb</h4>
+									</button>
+									<div id="sub-menu-2" class="sub-menu esconde">
+										<table>
+											<tr>
+												<td>Vídeo aula</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Assistir</button></td>
+											</tr>
+											<tr>
+												<td>Atividade</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Download</button></td>
+											</tr>
+											<tr>
+												<td>Avaliação</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Iniciar</button></td>
+											</tr>
+										</table>
+									</div>
+								
+
+									<button class="button" style="vertical-align:middle" data-id="sub-menu-3">
+										<h4>Linguagem de Programação II</h4>
+									</button>
+									<div id="sub-menu-3" class="sub-menu esconde">
+										<table>
+											<tr>
+												<td>Vídeo aula</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Assistir</button></td>
+											</tr>
+											<tr>
+												<td>Atividade</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Download</button></td>
+											</tr>
+											<tr>
+												<td>Avaliação</td>
+												<td> <button type="button" class="btn btn-primary btn-md">Iniciar</button></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			{% endblock %}

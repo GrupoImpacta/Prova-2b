@@ -1,0 +1,65 @@
+
+{% extends 'basealuno.html' %}
+
+{% block main %}
+<div>
+<ul>
+<li></h1><a href="areaaluno.html"> <button class="button2" style="vertical-align:middle" ><span><h4><pre>HOME</pre></h4></span></button></a></li>
+
+</ul>
+
+
+
+
+</div>
+
+<div class="row">
+
+{% for aluno in alunos  %}
+<div class="col-3 left">
+  <div class="aside">
+    <img src="..\imagens\aluna.png">
+    <p><strong>Ola:</strong>{{aluno.nome}}<br/><strong>Curso:</strong>{{aluno.curso}}<br/>
+    <a href="notasefaltasaluno.html"><button class="button" style="vertical-align:middle"><span><h4>Notas e Faltas</h4></span></button></a>
+    <a href="..\imagens\calendario.png"><p><button class="button" style="vertical-align:middle"><span><h4>Calendário e Horários</h4></span></button></p></a>
+	<a href="smartclass.html"><button class="button" style="vertical-align:middle"><span><h4>SmartClass</h4></h2></span></button></p></a>
+	<a href="perfilaluno.html"><button class="button" style="vertical-align:middle"><span><h4>Perfil</h4></h2></span></button></p></a>
+	<a href="index.html"><button class="button" style="vertical-align:middle"><span><h4>Sair</h4></h2></span></button></p></a>
+ </div>
+</div>
+{% endfor %}
+<div class="col-6">
+  <div class="box">
+    <form >
+		<label> <p id="para"><strong><h6>Solicitar Disciplina</h6></strong></p></label>
+		<select id="selecionar" name="selecionar">
+		    <option value="selecione diciplina">Disciplina</option>
+			<option value="linguagem de programação ii">Linguagem de Programação II</option>
+			<option value="linguagem sql">Linguagem SQL</option>
+			<option value="tecnologia web">Tecnologia WEB</option>
+		</select>
+		<button class="button3"><a href="matricula.html">Enviar</a></button>
+  </div>
+  <p></p>
+  <div class="box">
+    <p id="para"><strong>Disciplinas já cadastrado</strong><br/></p>
+	<strong>Disciplina:</strong> Linquargem de Programação
+  
+  
+  </div>
+    <p></p>
+	<center><img class="lado" src="..\imagens\chapeu.png"></center>
+           
+  
+  </div>
+</div>
+    
+  </div>
+  
+ </div>
+</div>
+
+
+
+</div>
+{% endblock %}
