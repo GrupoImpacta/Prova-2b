@@ -1,12 +1,13 @@
 from django.contrib import admin
-
 from core.models import *
-
 from django.contrib.auth.admin import UserAdmin
 from django import forms
 from random import randint
+from django.core.mail import send_mail
+import smtplib
 
-# Register your models here.
+'''Tabelas aluno e na criação do aluno envia o email(esse email é somente pelo admin)'''
+
 def testara_Aluno(n):
     lista = []
     contexto = Usuario.objects.all()
@@ -14,8 +15,34 @@ def testara_Aluno(n):
         lista.append(x.ra)
     while n in lista:
         n = randint(100000,199999)
-    return n   
+    return n
 
+
+def envia_email(email,ra,s):
+    remetente    = 'rodolfolibona@gmail.com'
+    senha        = '*****'
+    
+    '''Conteudo do email'''
+    
+    destinatario = email
+    assunto      = 'Matricula em Univans'
+    texto        =  ("Parabens por se matricular! \n Segue seus dados para logar-se no site : \n Seu RA: {0} \n Senha {1} senha \n Para trocar a senha faça o login e entre em seu perfil".format(ra,s))
+
+    '''Preenche os campos necessarios para enviar email'''
+
+    msg = '\r\n'.join([
+    'From: %s' % remetente,
+    'To: %s' % destinatario,
+    'Subject: %s' % assunto,    '',    
+    
+    "{}".format(texto)   ])
+ 
+    ''' Envia o email'''
+    server = smtplib.SMTP('smtp.gmail.com')
+    server.starttls()
+    server.login(remetente,senha)
+    server.sendmail(remetente, destinatario, msg)
+    
 class NovoAlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
@@ -23,13 +50,21 @@ class NovoAlunoForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(NovoAlunoForm, self).save(commit=False)
-        user.set_password('123@mudar')
+        user.set_password('aluno@univands')
         user.perfil = 'A'
         n = randint(100000,199999)
         ra_unico = testara_Aluno(n)
-        user.ra = ra_unico        
+        user.ra = ra_unico
+        s = 'aluno@univands'
+        email = user.email
+
+        envia_email(email,ra_unico,s)      
         if commit:
+            envia_email(email,ra_unico,s)  
+            print(a)
             user.save()
+            
+            
         return user
 
 class AlterarAlunoForm(forms.ModelForm):
@@ -59,6 +94,8 @@ class AlunoAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+'''Tabelas Professor no admin'''
+
 def testara_Professor(n):
     lista = []
     contexto = Usuario.objects.all()
@@ -75,7 +112,7 @@ class NovoProfessorForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(NovoProfessorForm, self).save(commit=False)
-        user.set_password('123@mudar')
+        user.set_password('prof@univands')
         user.perfil = 'P'
         n = randint(100000,199999)
         ra_unico = testara_Professor(n)
@@ -111,6 +148,7 @@ class ProfessorAdmin(UserAdmin):
     ordering = ('nome',)
     filter_horizontal = ()    
 
+'''Tabela Curso no admin'''
 class CursoAdmin(admin.ModelAdmin):
 
     list_display = ('sigla', 'nome')
@@ -127,6 +165,8 @@ class CursoAdmin(admin.ModelAdmin):
     ordering = ('nome',)
     filter_horizontal = () 
 
+'''Tabela GradeCurricular no admin'''
+
 class GradeCurricularAdmin(admin.ModelAdmin):
     list_display = ('ano','semestre','curso' ) 
     list_filter = ('ano','semestre','curso' )  
@@ -141,7 +181,9 @@ class GradeCurricularAdmin(admin.ModelAdmin):
     search_fields = ('ano','semestre','curso', ) 
     ordering = ('ano',)
     filter_horizontal = () 
-  
+
+'''Tabela Periodo no admin'''
+
 class PeriodoAdmin(admin.ModelAdmin):
     list_display = ('numero','gradeCurricular')
     list_filter = ('numero','gradeCurricular')
@@ -157,6 +199,8 @@ class PeriodoAdmin(admin.ModelAdmin):
     ordering = ('numero',)
     filter_horizontal = ()
     
+'''Tabela DisciplinaOfertada no admin'''
+
 class DisciplinaOfertadaAdmin(admin.ModelAdmin):
     list_display = ('ano','semestre','disciplina')
     list_filter = ('ano','semestre','disciplina')
@@ -172,7 +216,11 @@ class DisciplinaOfertadaAdmin(admin.ModelAdmin):
     ordering = ('ano',)
     filter_horizontal = ()
 
+'''Tabela Disciplina no admin'''
+
 class DisciplinaAdmin(admin.ModelAdmin):
+    #form = AlterarDisciplinaForm
+    #add_form = NovoDisciplinaForm 
     list_display = ('nome','carga_horaria')
     list_filter = ('nome','carga_horaria')
     fieldsets = ( (None, {'fields': ('nome','carga_horaria','teoria','pratica','ementa','competencias','habilidades','conteudo','bibliografia_complementar','bibliografia_basica')}),)
@@ -187,21 +235,25 @@ class DisciplinaAdmin(admin.ModelAdmin):
     ordering = ('nome',)
     filter_horizontal = ()
 
+'''Tabela Turma no admin'''
+
 class TurmaAdmin(admin.ModelAdmin):
 
-    list_display = ('turma_sigla','professor','turno','disciplinaOfertada')
+    list_display = ('turma_sigla','professor','turno','disciplinaOfertadas')
     list_filter = ('turma_sigla','professor','turno')
-    fieldsets = ( (None, {'fields': ('disciplinaOfertada','turma_sigla','professor','turno','cursos')}),)
+    fieldsets = ( (None, {'fields': ('disciplinaOfertadas','turma_sigla','professor','turno','cursos')}),)
     add_fieldsets = (
         (None, {
-            'fields':('disciplinaOfertada','turma_sigla','professor','turno','cursos')
+            'fields':('disciplinaOfertadas','turma_sigla','professor','turno','cursos')
 
             } ),
              
          )
-    search_fields = ('disciplinaOfertada','turma_sigla','professor','turno','cursos')
+    search_fields = ('disciplinaOfertadas','turma_sigla','professor','turno','cursos')
     ordering = ('turma_sigla',)
     filter_horizontal = ()
+
+'''Tabela Matricula no admin'''
 
 class MatriculaAdmin(admin.ModelAdmin):
     list_display = ('ra', 'turma', 'disciplina', 'ano','semestre',)
@@ -210,11 +262,17 @@ class MatriculaAdmin(admin.ModelAdmin):
     add_fieldsets = (
         (None, {
             'fields':('ra', 'turma', 'disciplina', 'ano','semestre',)
-            } ), 
+
+            } ),
+             
          )
     search_fields = ('ra',)
     ordering = ('disciplina',)
     filter_horizontal = ()
+
+
+
+'''Coloca as tabelas do banco para o admin brincar com elas'''
 
 admin.site.register(Aluno,AlunoAdmin)
 admin.site.register(Professor,ProfessorAdmin)
@@ -224,5 +282,5 @@ admin.site.register(Disciplina,DisciplinaAdmin)
 admin.site.register(Periodo,PeriodoAdmin)
 admin.site.register(Turma,TurmaAdmin)
 admin.site.register(GradeCurricular,GradeCurricularAdmin)
-admin.site.register(DisciplinaOfertada,DisciplinaOfertadaAdmin )
+admin.site.register(DisciplinaOfertada,DisciplinaOfertadaAdmin)
 
